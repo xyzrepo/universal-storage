@@ -16,6 +16,12 @@ export default <NuxtConfig> {
         path: '/',
         expires: new Date()
       }
+    },
+    localStorage: {
+      prefix: ''
+    },
+    sessionStorage: {
+      prefix: ''
     }
   }
 }

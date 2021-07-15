@@ -1,5 +1,5 @@
 {
-  "name": "@nuxtjs/universal-storage",
+  "name": "@xyz/universal-storage",
   "version": "0.5.9",
   "description": "Universal Storage Utilities for Nuxt",
   "repository": "nuxt-community/universal-storage-module",
@@ -36,6 +36,7 @@
     "jsdom": "latest",
     "mkdist": "latest",
     "nuxt-edge": "latest",
+    "playwright": "^1.12.3",
     "siroc": "latest",
     "standard-version": "latest"
   },

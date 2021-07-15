@@ -33,6 +33,9 @@ export class Storage implements NuxtStorage {
     // Local Storage
     this.setLocalStorage(key, value)
 
+    // Session Storage
+    this.setSessionStorage(key, value)
+
     return value
   }
 
@@ -48,6 +51,11 @@ export class Storage implements NuxtStorage {
     // Local Storage
     if (isUnset(value)) {
       value = this.getLocalStorage(key)
+    }
+
+    // Session Storage
+    if (isUnset(value)) {
+      value = this.getSessionStorage(key)
     }
 
     return value
@@ -70,6 +78,7 @@ export class Storage implements NuxtStorage {
   removeUniversal (key) {
     this.removeState(key)
     this.removeLocalStorage(key)
+    this.removeSessionStorage(key)
     this.removeCookie(key)
   }
 
@@ -191,6 +200,52 @@ export class Storage implements NuxtStorage {
     }
     const _key = this.options.localStorage.prefix + key
     localStorage.removeItem(_key)
+  }
+
+  // ------------------------------------
+  // Session storage
+  // ------------------------------------
+
+  setSessionStorage (key, value) {
+    if (typeof sessionStorage === 'undefined' || !this.options.sessionStorage) {
+      return
+    }
+
+    const _key = this.options.sessionStorage.prefix + key
+
+    try {
+      if (isObjectOrArray(value)) {
+        sessionStorage.setItem(_key, JSON.stringify(value))
+      } else {
+        sessionStorage.setItem(_key, value)
+      }
+    } catch (e) {
+      if (!this.options.ignoreExceptions) {
+        throw e
+      }
+    }
+
+    return value
+  }
+
+  getSessionStorage (key) {
+    if (typeof sessionStorage === 'undefined' || !this.options.sessionStorage) {
+      return
+    }
+
+    const _key = this.options.sessionStorage.prefix + key
+
+    const value = sessionStorage.getItem(_key)
+
+    return decodeValue(value)
+  }
+
+  removeSessionStorage (key) {
+    if (typeof sessionStorage === 'undefined' || !this.options.sessionStorage) {
+      return
+    }
+    const _key = this.options.sessionStorage.prefix + key
+    sessionStorage.removeItem(_key)
   }
 
   // ------------------------------------

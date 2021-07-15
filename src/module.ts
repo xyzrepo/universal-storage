@@ -15,6 +15,9 @@ const defaults = {
   localStorage: {
     prefix: ''
   },
+  sessionStorage: {
+    prefix: ''
+  },
   ignoreExceptions: false
 }
 
@@ -37,8 +40,15 @@ export default <Module<Config>> function module (moduleOptions) {
     src: require.resolve('./runtime/plugin'),
     fileName: 'storage.js',
     options
-  })
+  });
+
+   /*  this.addPlugin({
+      src: require.resolve('./runtime/auto-state'),
+      fileName: 'auto-state.client.js',
+      options
+    }); */
 
   nuxt.options.alias['~storage'] = require.resolve('./runtime/storage')
-  nuxt.options.build.transpile.push(__dirname, '@nuxtjs/universal-storage')
+  //nuxt.options.alias['~state'] = require.resolve('./runtime/auto-state')
+  nuxt.options.build.transpile.push(__dirname, '@xyz/universal-storage')
 }

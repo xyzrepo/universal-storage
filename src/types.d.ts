@@ -15,6 +15,10 @@ export interface NuxtStorage {
   setLocalStorage(key: string, value: any): void
   removeLocalStorage(key: string): void
 
+  getSessionStorage(key: string): any
+  setSessionStorage(key: string, value: any): void
+  removeSessionStorage(key: string): void
+
   getCookies(): { [key: string]: string }
   getCookie(key: string): any
   setCookie(key: string, value: any, options?: CookieSerializeOptions): void
