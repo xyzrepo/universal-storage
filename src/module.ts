@@ -18,6 +18,9 @@ const defaults = {
   sessionStorage: {
     prefix: ''
   },
+  autoState: {
+    cacheKey: 'state'
+  },
   ignoreExceptions: false
 }
 
@@ -31,7 +34,7 @@ declare module '@nuxt/types' {
   }
 }
 
-export default <Module<Config>> function module (moduleOptions) {
+export default <Module<Config>>function module(moduleOptions) {
   const { nuxt } = this
 
   const options: DeepPartial<Options> = defu(moduleOptions, { ...this.options.storage }, defaults)
@@ -42,13 +45,13 @@ export default <Module<Config>> function module (moduleOptions) {
     options
   });
 
-   /*  this.addPlugin({
-      src: require.resolve('./runtime/auto-state'),
-      fileName: 'auto-state.client.js',
-      options
-    }); */
+  this.addPlugin({
+    src: require.resolve('./runtime/auto-state'),
+    fileName: 'auto-state.client.js',
+    options
+  });
 
   nuxt.options.alias['~storage'] = require.resolve('./runtime/storage')
-  //nuxt.options.alias['~state'] = require.resolve('./runtime/auto-state')
+  nuxt.options.alias['~state'] = require.resolve('./runtime/auto-state')
   nuxt.options.build.transpile.push(__dirname, '@xyz/universal-storage')
 }

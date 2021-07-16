@@ -22,6 +22,9 @@ export default <NuxtConfig> {
     },
     sessionStorage: {
       prefix: ''
+    },
+    autoState: {
+      cacheKey: 'testing'
     }
   }
 }
