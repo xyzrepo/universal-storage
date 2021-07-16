@@ -165,7 +165,7 @@ export class Storage implements NuxtStorage {
       return
     }
 
-    const _key = this.options.localStorage.prefix + key
+    const _key = (this.options.localStorage.prefix ? (this.options.localStorage.prefix + key) : key)
 
     try {
       if (isObjectOrArray(value)) {
@@ -187,7 +187,7 @@ export class Storage implements NuxtStorage {
       return
     }
 
-    const _key = this.options.localStorage.prefix + key
+    const _key = (this.options.localStorage.prefix ? (this.options.localStorage.prefix + key) : key)
 
     const value = localStorage.getItem(_key)
 
@@ -198,7 +198,7 @@ export class Storage implements NuxtStorage {
     if (typeof localStorage === 'undefined' || !this.options.localStorage) {
       return
     }
-    const _key = this.options.localStorage.prefix + key
+    const _key = (this.options.localStorage.prefix ? (this.options.localStorage.prefix + key) : key)
     localStorage.removeItem(_key)
   }
 
@@ -211,7 +211,7 @@ export class Storage implements NuxtStorage {
       return
     }
 
-    const _key = this.options.sessionStorage.prefix + key
+    const _key = (this.options.sessionStorage.prefix ? (this.options.sessionStorage.prefix + key) : key)
 
     try {
       if (isObjectOrArray(value)) {
@@ -233,7 +233,7 @@ export class Storage implements NuxtStorage {
       return
     }
 
-    const _key = this.options.sessionStorage.prefix + key
+    const _key = (this.options.sessionStorage.prefix ? (this.options.sessionStorage.prefix + key) : key)
 
     const value = sessionStorage.getItem(_key)
 
@@ -244,7 +244,7 @@ export class Storage implements NuxtStorage {
     if (typeof sessionStorage === 'undefined' || !this.options.sessionStorage) {
       return
     }
-    const _key = this.options.sessionStorage.prefix + key
+    const _key = (this.options.sessionStorage.prefix ? (this.options.sessionStorage.prefix + key) : key)
     sessionStorage.removeItem(_key)
   }
 
@@ -264,7 +264,7 @@ export class Storage implements NuxtStorage {
       return
     }
 
-    const _key = this.options.cookie.prefix + key
+    const _key = (this.options.cookie.prefix ? (this.options.cookie.prefix + key) : key)
     const _options = Object.assign({}, this.options.cookie.options, options)
     const _value = encodeValue(value)
 
@@ -286,7 +286,7 @@ export class Storage implements NuxtStorage {
       return
     }
 
-    const _key = this.options.cookie.prefix + key
+    const _key = (this.options.cookie.prefix ? (this.options.cookie.prefix + key) : key)
 
     const cookies = this.getCookies()
 
