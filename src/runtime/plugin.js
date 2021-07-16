@@ -43,14 +43,18 @@ export default function nuxtUniversalStorage(ctx, inject) {
           beforeMount() {
             this.loadState();
           },
-
+          data () {
+            return {
+              _cacheKey_: this.autoStateConfig().cacheKey || 'storage'
+            }
+          },
           methods: {
             loadState() {
               if (!this.autoStateConfig()) {
                 return;
               }
               const savedState = $storage.getUniversal(
-                this.autoStateConfig().cacheKey
+                _cacheKey_
               );
 
               if (!savedState) {
@@ -82,7 +86,7 @@ export default function nuxtUniversalStorage(ctx, inject) {
                 ignoreProperties: this.autoStateConfig().ignoreProperties
               });
 
-              $storage.setUniversal(this.autoStateConfig().cacheKey, data);
+              $storage.setUniversal(_cacheKey_, data);
 
             },
             _sanitizeData(data, { saveProperties, ignoreProperties }) {
@@ -94,7 +98,7 @@ export default function nuxtUniversalStorage(ctx, inject) {
                 return;
               }
               const savedState = $storage.getUniversal(
-                this.autoStateConfig().cacheKey
+                _cacheKey_
               );
 
               if (!savedState) {
@@ -119,7 +123,7 @@ export default function nuxtUniversalStorage(ctx, inject) {
               if (!this.autoStateConfig()) {
                 return;
               }
-              $storage.setUniversal(this.autoStateConfig().cacheKey, data);
+              $storage.setUniversal(_cacheKey_, data);
 
             },
 
@@ -145,7 +149,7 @@ export default function nuxtUniversalStorage(ctx, inject) {
               if (!this.autoStateConfig()) {
                 return;
               }
-              $storage.removeUniversal(this.autoStateConfig().cacheKey);
+              $storage.removeUniversal(_cacheKey_);
             },
 
             autoStateConfig() {
